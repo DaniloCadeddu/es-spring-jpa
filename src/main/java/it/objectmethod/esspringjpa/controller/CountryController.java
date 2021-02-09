@@ -17,7 +17,8 @@ public class CountryController {
 	private CountryRepository countryRepo;
 
 	@GetMapping("/{name}/{continent}/find")
-	public Country findCountryByNameAndContinent(@PathVariable("name") String name, @PathVariable("continent") String continent) {
+	public Country findCountryByNameAndContinent(@PathVariable("name") String name,
+			@PathVariable("continent") String continent) {
 		Country country = countryRepo.findByNameAndContinent(name, continent);
 
 		return country;
@@ -26,15 +27,22 @@ public class CountryController {
 	@GetMapping("/find-populated-countries")
 	public List<Country> findPopulatedCountries() {
 		List<Country> countries = countryRepo.findPopulatedCountries();
-		
+
 		return countries;
 	}
 	
+	@GetMapping("/{code}/find-country")
+	public Country findById(@PathVariable("code") String code) {
+		Country c = countryRepo.findByCode(code);
+		return c;
+	}
+
 	@GetMapping("/find-capitals")
 	public List<String> findCapitals() {
 		List<String> countries = countryRepo.findCapitals();
-		
+
 		return countries;
 	}
 	
+
 }

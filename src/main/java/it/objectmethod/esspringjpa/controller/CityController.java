@@ -1,5 +1,6 @@
 package it.objectmethod.esspringjpa.controller;
 
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,18 +24,23 @@ public class CityController {
 
 		return city;
 	}
-	
+
 	@GetMapping("/find-by-name-countrycode")
-	public City findCityByNameAndCountryCode(@RequestParam("name") String name, @RequestParam("countryCode") String countryCode) {
+	public City findCityByNameAndCountryCode(@RequestParam("name") String name,
+			@RequestParam("countryCode") String countryCode) {
 		City city = cityRepo.findByNameAndCountryCode(name, countryCode);
 		return city;
 	}
-	
+
 	@PostMapping("/city-post")
 	public City postCity(@RequestBody City city) {
 		cityRepo.save(city);
 		return city;
-		
 	}
 
+	@GetMapping("/find-asian-cities")
+	public List<String> findAsianCities() {
+		List<String> asianCities = cityRepo.findAsianCities();
+		return asianCities;
+	}
 }
