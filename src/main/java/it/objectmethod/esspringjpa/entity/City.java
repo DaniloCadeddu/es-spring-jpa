@@ -1,11 +1,15 @@
 package it.objectmethod.esspringjpa.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -33,6 +37,19 @@ public class City {
 
 	public Country getCountry() {
 		return country;
+	}
+	
+	@ManyToMany
+	@JoinTable(name = "city_tp", joinColumns = @JoinColumn(name = "id_city", referencedColumnName = "ID")
+	, inverseJoinColumns = @JoinColumn(name = "id_trasporti", referencedColumnName = "serviziId"))
+	private List<TrasportiPubblici> trasportiPubblici;
+
+	public List<TrasportiPubblici> getTrasportiPubblici() {
+		return trasportiPubblici;
+	}
+
+	public void setTrasportiPubblici(List<TrasportiPubblici> trasportiPubblici) {
+		this.trasportiPubblici = trasportiPubblici;
 	}
 
 	public void setCountry(Country country) {
